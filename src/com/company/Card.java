@@ -1,5 +1,5 @@
-
 package com.company;
+
 /**
  * Card.java
  *
