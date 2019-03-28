@@ -2,7 +2,6 @@ package com.company;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * The Deck class represents a shuffled deck of cards.
@@ -22,7 +21,6 @@ public class Deck {
      * The next card to be dealt is at size - 1.
      */
     private int size;
-    private int totalSize;
 
 
     /**
@@ -41,7 +39,6 @@ public class Deck {
             }
         }
         size = cards.size();
-        totalSize = size;
         shuffle();
     }
 
@@ -66,40 +63,16 @@ public class Deck {
      * Randomly permute the given collection of cards
      * and reset the size to represent the entire deck.
      */
-    public void shuffle()
-    {
-        //System.out.println("Shuffle---------------------------------");
-
-
-        Random ran = new Random();
-        List<Card> shuffled = new ArrayList<>();
-        int [] pos = new int [cards.size()];
-        for (int p = 0; p <pos.length; p++)
-        {
-            shuffled.add(null);
-            pos[p] = -1;
+    public void shuffle() {
+        for (int k = cards.size() - 1; k > 0; k--) {
+            int howMany = k + 1;
+            int start = 0;
+            int randPos = (int) (Math.random() * howMany) + start;
+            Card temp = cards.get(k);
+            cards.set(k, cards.get(randPos));
+            cards.set(randPos, temp);
         }
-        int j;
-        for (int k = 0; k < cards.size(); k++)
-        {
-            while (true)
-            {
-                j = ran.nextInt(cards.size());
-                if(pos[j] == -1)
-                {
-                    pos[j] = 0;
-                    shuffled.set(j , cards.get(k));
-                    break;
-                }
-            }
-        }
-        for(int q = 0; q < cards.size(); q++)
-        {
-            cards.set(q, shuffled.get(q));
-        }
-
-
-        size = totalSize;
+        size = cards.size();
     }
 
     /**
@@ -115,7 +88,6 @@ public class Deck {
         Card c = cards.get(size);
         return c;
     }
-
 
     /**
      * Generates and returns a string representation of this deck.
